@@ -18,6 +18,8 @@ This project retrieves data from the Star Wars API and displays the results usin
 
 ![project-screenshot-4](assets/project-screenshot-4.webp)
 
+![lighthouse](assets/lighthouse.webp)
+
 ## Installation Instructions
 
 1. Clone the repo:
