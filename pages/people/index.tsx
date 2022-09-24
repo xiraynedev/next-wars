@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { handleSort } from '../../utils/functions';
+import { sortHeight, sortMass, sortName } from '../../utils/functions';
 import Head from 'next/head';
 
 const People: FC = ({
@@ -44,28 +44,17 @@ const People: FC = ({
   };
 
   const handleSortName = () => {
-    const resultsCopy = [...results];
-    resultsCopy.sort((a: any, b: any) => {
-      const nameA = a.name.toLowerCase();
-      const nameB = b.name.toLowerCase();
-      if (nameA < nameB) return -1;
-      if (nameA > nameB) return 1;
-      return 0;
-    });
-    setResults(resultsCopy);
+    const sortedCopy = sortName([...results]);
+    setResults(sortedCopy);
   };
 
   const handleSortHeight = () => {
-    const resultsCopy = [...results];
-    resultsCopy.sort((a: any, b: any) => {
-      return a.height - b.height;
-    });
-    setResults(resultsCopy);
+    const sortedCopy = sortHeight([...results]);
+    setResults(sortedCopy);
   };
 
   const handleSortMass = () => {
-    const resultsCopy = [...results];
-    const sortedCopy = handleSort(resultsCopy);
+    const sortedCopy = sortMass([...results]);
     setResults(sortedCopy);
   };
 

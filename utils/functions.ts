@@ -1,14 +1,30 @@
-export const handleSort = (resultsCopy: any) => {
-    return resultsCopy.sort((a: any, b: any) => {
-      let replaceA = a.mass;
-      let replaceB = b.mass;
+export const sortName = (resultsCopy: any) => {
+  return resultsCopy.sort((a: any, b: any) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+};
 
-      if (a.mass.includes('unknown')) replaceA = a.mass.replace('unknown', '0');
-      if (a.mass.includes(',')) replaceA = a.mass.replace(',', '');
+export const sortHeight = (resultsCopy: any) => {
+  return resultsCopy.sort((a: any, b: any) => {
+    return a.height - b.height;
+  });
+};
 
-      if (b.mass.includes(',')) replaceB = b.mass.replace(',', '');
-      if (b.mass.includes('unknown')) replaceB = b.mass.replace('unknown', '0');
+export const sortMass = (resultsCopy: any) => {
+  return resultsCopy.sort((a: any, b: any) => {
+    let replaceA = a.mass;
+    let replaceB = b.mass;
 
-      return replaceA - replaceB;
-    });
-}
+    if (a.mass.includes('unknown')) replaceA = a.mass.replace('unknown', '0');
+    if (a.mass.includes(',')) replaceA = a.mass.replace(',', '');
+
+    if (b.mass.includes(',')) replaceB = b.mass.replace(',', '');
+    if (b.mass.includes('unknown')) replaceB = b.mass.replace('unknown', '0');
+
+    return replaceA - replaceB;
+  });
+};
