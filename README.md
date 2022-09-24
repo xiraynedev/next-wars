@@ -33,7 +33,7 @@ cd next-wars
 3. Install dependencies
 
 ```sh
-cd npm i
+npm i
 ```
 
 4. Start the dev server:
