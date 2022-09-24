@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { handleSort } from '../../utils/functions';
+import Head from 'next/head';
 
 const People: FC = ({
   data,
@@ -64,12 +65,15 @@ const People: FC = ({
 
   const handleSortMass = () => {
     const resultsCopy = [...results];
-    const sortedCopy = handleSort(resultsCopy)
+    const sortedCopy = handleSort(resultsCopy);
     setResults(sortedCopy);
   };
 
   return (
     <>
+      <Head>
+        <title>People Endpoint</title>
+      </Head>
       {results.map((result: any) => {
         return (
           <Card key={v4()} sx={{ marginBottom: '20px' }}>

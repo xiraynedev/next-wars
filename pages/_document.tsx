@@ -4,6 +4,12 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
+        <meta name='viewport' content='width=device-width,initial-scale=1.0' />
+        <meta name='author' content='xiraynedev' />
+        <meta
+          name='description'
+          content='A Next.js project using TypeScript to get Star Wars API data and display it on the client.'
+        />
         <link rel='preconnect' href='https://fonts.googleapis.com/' />
         <link
           rel='stylesheet'
