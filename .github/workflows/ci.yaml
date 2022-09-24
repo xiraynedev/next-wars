@@ -1,0 +1,16 @@
+name: CI
+on: [push]
+jobs:
+  workflow:
+    name: Run basic workflow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Lint codebase
+        run: npm run lint
