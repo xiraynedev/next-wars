@@ -87,6 +87,15 @@ const People: FC = ({
         <Button variant='contained' onClick={handleNextClick}>
           Next
         </Button>
+        <Link href='/api/people?sort=name' passHref>
+          <Button variant='contained'>JSON Sorted by Name</Button>
+        </Link>
+        <Link href='/api/people?sort=height' passHref>
+          <Button variant='contained'>JSON Sorted by Height</Button>
+        </Link>
+        <Link href='/api/people?sort=mass' passHref>
+          <Button variant='contained'>JSON Sorted by Mass</Button>
+        </Link>
         <Button variant='contained' onClick={handleSortName}>
           Sort by Name
         </Button>
