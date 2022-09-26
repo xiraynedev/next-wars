@@ -30,14 +30,14 @@ export default async function handler(
 
   while (dataCopy.next) {
     await fetch(dataCopy.next)
-      .then((result) => result.json())
+      .then((result: any) => result.json())
       .then((resultData) => {
         dataCopy.next = resultData.next;
         dataCopy.results.push(resultData.results);
       });
   }
 
-  dataCopy.results.flat().sort((a: any, b: any) => {
+  const sortedCopy = dataCopy.results.flat().sort((a: any, b: any) => {
     switch (req.query.sort) {
       case 'name':
         const nameA = a.name.toLowerCase();
@@ -46,7 +46,7 @@ export default async function handler(
         if (nameA > nameB) return 1;
         return 0;
       case 'height':
-        return Number.parseInt(a.height) - Number.parseInt(b.height);
+        return a.height - b.height;
       case 'mass':
         let replaceA = a.mass;
         let replaceB = b.mass;
@@ -65,5 +65,5 @@ export default async function handler(
     }
   });
 
-  res.json(dataCopy);
+  res.json(sortedCopy);
 }
