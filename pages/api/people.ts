@@ -1,5 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+export interface PeopleProps {
+  name: string;
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  eye_color: string;
+  birth_year: string;
+  gender: string;
+  homeworld: string;
+  films: string[];
+  species: string[];
+  vehicles: string[];
+  starships: string[];
+  created: string;
+  edited: string;
+  url: string;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -7,18 +26,18 @@ export default async function handler(
   const response = await fetch('https://swapi.dev/api/people');
   const data = await response.json();
 
-  const fullData = { ...data };
+  const dataCopy = { ...data };
 
-  while (fullData.next) {
-    await fetch(fullData.next)
-      .then((result: any) => result.json())
+  while (dataCopy.next) {
+    await fetch(dataCopy.next)
+      .then((result) => result.json())
       .then((resultData) => {
-        fullData.next = resultData.next;
-        fullData.results.push(resultData.results);
+        dataCopy.next = resultData.next;
+        dataCopy.results.push(resultData.results);
       });
   }
 
-  const sortedCopy = fullData.results.flat().sort((a: any, b: any) => {
+  dataCopy.results.flat().sort((a: any, b: any) => {
     switch (req.query.sort) {
       case 'name':
         const nameA = a.name.toLowerCase();
@@ -27,7 +46,7 @@ export default async function handler(
         if (nameA > nameB) return 1;
         return 0;
       case 'height':
-        return a.height - b.height;
+        return Number.parseInt(a.height) - Number.parseInt(b.height);
       case 'mass':
         let replaceA = a.mass;
         let replaceB = b.mass;
@@ -46,5 +65,5 @@ export default async function handler(
     }
   });
 
-  res.json(sortedCopy);
+  res.json(dataCopy);
 }
