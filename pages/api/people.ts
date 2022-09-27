@@ -1,22 +1,29 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export interface PeopleProps {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
-  created: string;
-  edited: string;
-  url: string;
+  count: number;
+  next: string;
+  previous: string;
+  results: [
+    {
+      name: string;
+      height: string;
+      mass: string;
+      hair_color: string;
+      skin_color: string;
+      eye_color: string;
+      birth_year: string;
+      gender: string;
+      homeworld: string;
+      films: string[];
+      species: string[];
+      vehicles: string[];
+      starships: string[];
+      created: string;
+      edited: string;
+      url: string;
+    },
+  ];
 }
 
 export default async function handler(
@@ -24,20 +31,20 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const response = await fetch('https://swapi.dev/api/people');
-  const data = await response.json();
+  const data: PeopleProps = await response.json();
 
   const dataCopy = { ...data };
 
   while (dataCopy.next) {
     await fetch(dataCopy.next)
-      .then((result: any) => result.json())
+      .then((result) => result.json())
       .then((resultData) => {
         dataCopy.next = resultData.next;
         dataCopy.results.push(resultData.results);
       });
   }
 
-  const sortedCopy = dataCopy.results.flat().sort((a: any, b: any) => {
+  const sortedCopy = dataCopy.results.flat().sort((a, b): number => {
     switch (req.query.sort) {
       case 'name':
         const nameA = a.name.toLowerCase();
@@ -46,7 +53,7 @@ export default async function handler(
         if (nameA > nameB) return 1;
         return 0;
       case 'height':
-        return a.height - b.height;
+        return Number.parseInt(a.height) - Number.parseInt(b.height);
       case 'mass':
         let replaceA = a.mass;
         let replaceB = b.mass;
@@ -55,13 +62,13 @@ export default async function handler(
           replaceA = a.mass.replace('unknown', '0');
         if (a.mass.includes(',')) replaceA = a.mass.replace(',', '');
 
-        if (b.mass.includes(',')) replaceB = b.mass.replace(',', '');
         if (b.mass.includes('unknown'))
           replaceB = b.mass.replace('unknown', '0');
+        if (b.mass.includes(',')) replaceB = b.mass.replace(',', '');
 
-        return replaceA - replaceB;
+        return Number.parseInt(replaceA) - Number.parseInt(replaceB);
       default:
-        return;
+        return 0;
     }
   });
 
