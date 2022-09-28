@@ -67,16 +67,16 @@ const People: FC = ({
       <Head>
         <title>People Endpoint</title>
       </Head>
-      {results.map((result: any) => (
+      {results.map((result) => (
         <Card key={v4()} sx={{ marginBottom: '20px' }}>
           <CardContent>
-            <Typography variant='h5' component='div'>
+            <Typography variant='h4' fontWeight='bold' component='p'>
               Name: {result.name}
             </Typography>
-            <Typography variant='h6' component='div'>
+            <Typography variant='h6' fontWeight='bold' component='p'>
               Height: {result.height}
             </Typography>
-            <Typography variant='h6' component='div'>
+            <Typography variant='h6' fontWeight='bold' component='p'>
               Mass: {result.mass}
             </Typography>
           </CardContent>
