@@ -1,3 +1,5 @@
+import { PlanetResult, PeopleResult } from './../interfaces/index';
+
 export const fetchData = async (page: string) => {
   const response = await fetch(page);
   const data = await response.json();
@@ -5,8 +7,8 @@ export const fetchData = async (page: string) => {
   return data;
 };
 
-export const sortName = (resultsCopy: any) => {
-  return resultsCopy.sort((a: any, b: any) => {
+export const sortName = (resultsCopy: PeopleResult[]) => {
+  return resultsCopy.sort((a, b) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
     if (nameA < nameB) return -1;
@@ -15,14 +17,14 @@ export const sortName = (resultsCopy: any) => {
   });
 };
 
-export const sortHeight = (resultsCopy: any) => {
-  return resultsCopy.sort((a: any, b: any) => {
-    return a.height - b.height;
+export const sortHeight = (resultsCopy: PeopleResult[]) => {
+  return resultsCopy.sort((a, b) => {
+    return Number.parseInt(a.height) - Number.parseInt(b.height);
   });
 };
 
-export const sortMass = (resultsCopy: any) => {
-  return resultsCopy.sort((a: any, b: any) => {
+export const sortMass = (resultsCopy: PeopleResult[]) => {
+  return resultsCopy.sort((a, b) => {
     let replaceA = a.mass;
     let replaceB = b.mass;
 
@@ -32,19 +34,33 @@ export const sortMass = (resultsCopy: any) => {
     if (b.mass.includes(',')) replaceB = b.mass.replace(',', '');
     if (b.mass.includes('unknown')) replaceB = b.mass.replace('unknown', '0');
 
-    return replaceA - replaceB;
+    return Number.parseInt(replaceA) - Number.parseInt(replaceB);
   });
 };
 
-export const getResidents = (result: any, index: number) => {
-  const residents: string[] = [];
+export const getResidents = async (results: PlanetResult[]) => {
+  const planets = [...results];
 
-  for (let i = 0; i < result.residents.length; i++) {
-    residents.push(result.residents[i]);
+  for (let i = 0; i < planets.length; i++) {
+    const residents: string[] = [];
+    for (let j = 0; j < planets[i].residents.length; j++) {
+      residents.push(planets[i].residents[j]);
+    }
+    await Promise.all(
+      residents.map(
+        async (resident) =>
+          await fetch(resident).then((residentResponse) =>
+            residentResponse.json(),
+          ),
+      ),
+    ).then((residentData) => {
+      residents.length = 0;
+      residentData.forEach((person) => {
+        residents.push(person.name);
+      });
+    });
+    planets[i].residents = residents;
   }
 
-  if (residents.length == 0) {
-    return ['None'];
-  }
-  return residents;
+  return planets;
 };

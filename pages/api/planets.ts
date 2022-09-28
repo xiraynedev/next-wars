@@ -1,35 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
-export interface DataProps {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: [
-    {
-      name: string;
-      rotation_period: string;
-      orbital_period: string;
-      diameter: string;
-      climate: string;
-      gravity: string;
-      terrain: string;
-      surface_water: string;
-      population: string;
-      residents: string[];
-      films: string[];
-      created: string;
-      edited: string;
-      url: string;
-    },
-  ];
-}
+import { PlanetProps } from '../../interfaces';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   const response = await fetch('https://swapi.dev/api/planets');
-  const data: DataProps = await response.json();
+  const data: PlanetProps = await response.json();
 
   const dataCopy = { ...data };
 
@@ -42,15 +19,30 @@ export default async function handler(
       });
   }
 
-  Promise.all(
-    dataCopy.results[0].residents.map((resident: string) =>
-      fetch(resident).then((resiResponse) => resiResponse.json()),
-    ),
-  ).then((promiseValue) => {
-    dataCopy.results[0].residents = [];
-    for (const person of promiseValue) {
-      dataCopy.results[0].residents.push(person.name);
+  const planets = dataCopy.results.flat();
+
+  for (let i = 0; i < planets.length; i++) {
+    const residents: string[] = [];
+    for (let j = 0; j < planets[i].residents.length; j++) {
+      residents.push(planets[i].residents[j]);
     }
-    res.json(dataCopy.results[0]);
-  });
+    await Promise.all(
+      residents.map(
+        async (resident) =>
+          await fetch(resident).then((residentResponse) =>
+            residentResponse.json(),
+          ),
+      ),
+    ).then((residentData) => {
+      residents.length = 0;
+      residentData.forEach((person) => {
+        residents.push(person.name);
+      });
+    });
+
+    dataCopy.results.flat()[i].residents.length = 0;
+    dataCopy.results.flat()[i].residents.push(...residents);
+  }
+
+  res.json(dataCopy);
 }
