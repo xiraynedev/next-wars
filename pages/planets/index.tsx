@@ -1,33 +1,63 @@
-import { FC } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
+import { FC, useState } from 'react';
+import {
+  GetStaticProps,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from 'next';
+import DisplayPlanetsData from '../../components/DisplayPlanetsData/DisplayPlanetsData';
+import PlanetsButtons from '../../components/DisplayButtons/PlanetsButtons.tsx/PlanetsButtons';
+import { fetchData } from '../../utils/functions';
 
-const Planets: FC = (props) => {
+const Planets: FC = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [previousPage, setPreviousPage] = useState(data.previous);
+  const [nextPage, setNextPage] = useState(data.next);
+  const [results, setResults] = useState(data.results);
+
+  const handlePreviousClick = async () => {
+    if (!previousPage) return;
+
+    const previousPageResponse = await fetchData(previousPage);
+
+    setPreviousPage(previousPageResponse.previous);
+    setNextPage(previousPageResponse.next);
+    setResults(previousPageResponse.results);
+  };
+  const handleNextClick = async () => {
+    if (!nextPage) return;
+
+    const nextPageResponse = await fetchData(nextPage);
+
+    setPreviousPage(nextPageResponse.previous);
+    setNextPage(nextPageResponse.next);
+    setResults(nextPageResponse.results);
+  };
+
+  const displayButtonsProps = {
+    handlePreviousClick,
+    handleNextClick,
+  };
+
   return (
-    <Box sx={{ margin: '10px' }}>
-      <Head>
-        <title>Planet Endpoint</title>
-      </Head>
-      <h1>Planet endpoint data coming soon</h1>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Link href='/api/planets' passHref>
-          <Button variant='contained'>Retrieve JSON</Button>
-        </Link>
-        <Link href='/' passHref>
-          <Button variant='contained'>Return to Main Menu</Button>
-        </Link>
-      </Stack>
-    </Box>
+    <>
+      <DisplayPlanetsData pageTitle='Planets Endpoint' results={results} />
+      <PlanetsButtons {...displayButtonsProps} />
+    </>
   );
 };
 
 export default Planets;
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext,
+) => {
+  const response = await fetch('https://swapi.dev/api/planets');
+  const data = await response.json();
+
   return {
-    props: {},
+    props: {
+      data,
+    },
   };
 };

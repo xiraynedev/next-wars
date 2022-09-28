@@ -1,3 +1,10 @@
+export const fetchData = async (page: string) => {
+  const response = await fetch(page);
+  const data = await response.json();
+
+  return data;
+};
+
 export const sortName = (resultsCopy: any) => {
   return resultsCopy.sort((a: any, b: any) => {
     const nameA = a.name.toLowerCase();

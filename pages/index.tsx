@@ -1,12 +1,11 @@
-import * as React from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Link from 'next/link';
-import Head from 'next/head';
 
 export default function Home() {
   return (
@@ -32,7 +31,7 @@ export default function Home() {
           <Button variant='contained'>People Endpoint</Button>
         </Link>
         <Link href='/planets' passHref>
-          <Button variant='contained'>Planet Endpoint</Button>
+          <Button variant='contained'>Planets Endpoint</Button>
         </Link>
       </Stack>
     </>
