@@ -1,3 +1,4 @@
+import { getResidents } from './../../utils/functions';
 import { PeopleResult } from './../../interfaces/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PlanetProps } from '../../interfaces';
@@ -22,18 +23,11 @@ export default async function handler(
 
   const planets = dataCopy.results.flat();
 
-  for (let i = 0; i < planets.length; i++) {
-    const peopleResult: PeopleResult[] = await Promise.all(
-      planets[i].residents.map((resident) =>
-        fetch(resident).then((residentResponse) => residentResponse.json()),
-      ),
-    );
+  const peopleResult = await getResidents([...planets]);
 
-    planets[i].residents.length = 0;
-    for (const person of peopleResult) {
-      planets[i].residents.push(person.name);
-    }
-  }
+  peopleResult.forEach((person, index: number) => {
+    planets[index].residents.push(person.name);
+  });
 
   res.json(planets);
 }

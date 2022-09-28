@@ -42,24 +42,16 @@ export const getResidents = async (results: PlanetResult[]) => {
   const planets = [...results];
 
   for (let i = 0; i < planets.length; i++) {
-    const residents: string[] = [];
-    for (let j = 0; j < planets[i].residents.length; j++) {
-      residents.push(planets[i].residents[j]);
-    }
-    await Promise.all(
-      residents.map(
-        async (resident) =>
-          await fetch(resident).then((residentResponse) =>
-            residentResponse.json(),
-          ),
+    const peopleResult: PeopleResult[] = await Promise.all(
+      planets[i].residents.map((resident) =>
+        fetch(resident).then((residentResponse) => residentResponse.json()),
       ),
-    ).then((residentData) => {
-      residents.length = 0;
-      residentData.forEach((person) => {
-        residents.push(person.name);
-      });
-    });
-    planets[i].residents = residents;
+    );
+
+    planets[i].residents.length = 0;
+    for (const person of peopleResult) {
+      planets[i].residents.push(person.name);
+    }
   }
 
   return planets;
