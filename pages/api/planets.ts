@@ -1,4 +1,3 @@
-import { getResidents } from './../../utils/functions';
 import { PeopleResult } from './../../interfaces/index';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PlanetProps } from '../../interfaces';
