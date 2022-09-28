@@ -5,21 +5,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { ApiData } from '../../interfaces/ApiData';
+import { getResidents } from '../../utils/functions';
 
 const DisplayPlanetsData: FC<ApiData> = ({ pageTitle, results }) => {
-  const getResidents = (result: any, index: number) => {
-    const residents: string[] = [];
-
-    for (let i = 0; i < result.residents.length; i++) {
-      residents.push(result.residents[i]);
-    }
-
-    if (residents.length == 0) {
-      return ['None'];
-    }
-    return residents;
-  };
-
   return (
     <>
       <Head>

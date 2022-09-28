@@ -35,3 +35,16 @@ export const sortMass = (resultsCopy: any) => {
     return replaceA - replaceB;
   });
 };
+
+export const getResidents = (result: any, index: number) => {
+  const residents: string[] = [];
+
+  for (let i = 0; i < result.residents.length; i++) {
+    residents.push(result.residents[i]);
+  }
+
+  if (residents.length == 0) {
+    return ['None'];
+  }
+  return residents;
+};
