@@ -23,8 +23,8 @@ import {
 const People: FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [previousPage, setPreviousPage] = useState<string>(data.previous);
-  const [nextPage, setNextPage] = useState<string>(data.next);
+  const [previousPage, setPreviousPage] = useState<string | null>(data.previous);
+  const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PeopleResult[]>(data.results);
 
   const handlePreviousClick = async () => {
