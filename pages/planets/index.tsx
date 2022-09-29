@@ -18,8 +18,8 @@ import { PlanetProps, PlanetResult } from '../../interfaces';
 const Planets: FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [previousPage, setPreviousPage] = useState<string>(data.previous);
-  const [nextPage, setNextPage] = useState<string>(data.next);
+  const [previousPage, setPreviousPage] = useState<string | null>(data.previous);
+  const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PlanetResult[]>(data.results);
 
   const handlePreviousClick = async () => {
@@ -30,11 +30,12 @@ const Planets: FC = ({
     setPreviousPage(previousPageResponse.previous);
     setNextPage(previousPageResponse.next);
 
-    const previousResidentsResponse = await getResidents([
-      ...previousPageResponse.results,
-    ]);
+    console.log(previousPage)
+    // const previousResidentsResponse = await getResidents([
+    //   ...previousPageResponse.results,
+    // ]);
 
-    setResults(previousResidentsResponse);
+    // setResults(previousResidentsResponse);
   };
   const handleNextClick = async () => {
     if (!nextPage) return;
@@ -43,6 +44,8 @@ const Planets: FC = ({
 
     setPreviousPage(nextPageResponse.previous);
     setNextPage(nextPageResponse.next);
+
+    console.log(nextPage)
 
     const nextResidentsResponse = await getResidents([
       ...nextPageResponse.results,
