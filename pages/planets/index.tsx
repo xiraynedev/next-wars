@@ -30,12 +30,11 @@ const Planets: FC = ({
     setPreviousPage(previousPageResponse.previous);
     setNextPage(previousPageResponse.next);
 
-    console.log(previousPage)
-    // const previousResidentsResponse = await getResidents([
-    //   ...previousPageResponse.results,
-    // ]);
+    const previousResidentsResponse = await getResidents([
+      ...previousPageResponse.results,
+    ]);
 
-    // setResults(previousResidentsResponse);
+    setResults(previousResidentsResponse);
   };
   const handleNextClick = async () => {
     if (!nextPage) return;
@@ -44,8 +43,6 @@ const Planets: FC = ({
 
     setPreviousPage(nextPageResponse.previous);
     setNextPage(nextPageResponse.next);
-
-    console.log(nextPage)
 
     const nextResidentsResponse = await getResidents([
       ...nextPageResponse.results,

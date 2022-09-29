@@ -43,13 +43,23 @@ export const sortMass = (resultsCopy: PeopleResult[]) => {
 };
 
 export const getResidents = async (results: PlanetResult[]) => {
+  const cache = await caches.open('residents');
   const planets = [...results];
 
   for (let i = 0; i < planets.length; i++) {
     const peopleResult: PeopleResult[] = await Promise.all(
-      planets[i].residents.map((resident) =>
-        fetch(resident).then((residentResponse) => residentResponse.json()),
-      ),
+      planets[i].residents.map(async (resident) => {
+        if (await cache.match(resident)) {
+          return cache
+            .match(resident)
+            .then((residentData) => residentData?.json());
+        }
+
+        await cache.add(resident)
+        return await cache
+          .match(resident)
+          .then((residentData) => residentData?.json());
+      }),
     );
 
     planets[i].residents.length = 0;
@@ -58,5 +68,6 @@ export const getResidents = async (results: PlanetResult[]) => {
     }
   }
 
+  console.log(planets)
   return planets;
 };
