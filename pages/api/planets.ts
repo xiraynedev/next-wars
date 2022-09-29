@@ -1,6 +1,5 @@
-import { PeopleResult } from './../../interfaces/index';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PlanetProps } from '../../interfaces';
+import { PeopleResult, PlanetProps } from '../../interfaces';
 
 export default async function handler(
   req: NextApiRequest,
