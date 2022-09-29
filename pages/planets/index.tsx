@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import {
   GetStaticProps,
   GetStaticPropsContext,
@@ -13,14 +13,16 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { fetchData, getResidents } from '../../utils/functions';
-import { PlanetProps, PlanetResult } from '../../interfaces';
+import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
 
 const Planets: FC = ({
-  data,
+  data: planetResults,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [previousPage, setPreviousPage] = useState<string | null>(data.previous);
-  const [nextPage, setNextPage] = useState<string | null>(data.next);
-  const [results, setResults] = useState<PlanetResult[]>(data.results);
+  const [previousPage, setPreviousPage] = useState<string | null>(
+    planetResults.previous,
+  );
+  const [nextPage, setNextPage] = useState<string | null>(planetResults.next);
+  const [results, setResults] = useState<PlanetResult[]>(planetResults.results);
 
   const handlePreviousClick = async () => {
     if (!previousPage) return;
@@ -36,6 +38,7 @@ const Planets: FC = ({
 
     setResults(previousResidentsResponse);
   };
+
   const handleNextClick = async () => {
     if (!nextPage) return;
 
@@ -51,6 +54,40 @@ const Planets: FC = ({
     setResults(nextResidentsResponse);
   };
 
+  const retrieveResidents = async () => {
+    const planetResults = [...results];
+
+    const cache = await caches.open('residents');
+
+    for (let i = 0; i < planetResults.length; i++) {
+      const peopleResult: PeopleResult[] = await Promise.all(
+        planetResults[i].residents.map(async (resident) => {
+          if (await cache.match(resident)) {
+            return cache
+              .match(resident)
+              .then((residentData) => residentData?.json());
+          }
+
+          await cache.add(resident);
+          return await cache
+            .match(resident)
+            .then((residentData) => residentData?.json());
+        }),
+      );
+
+      planetResults[i].residents.length = 0;
+      for (const person of peopleResult) {
+        planetResults[i].residents.push(person.name);
+      }
+    }
+
+    setResults(planetResults);
+  };
+
+  useLayoutEffect(() => {
+    retrieveResidents();
+  }, []);
+
   return (
     <>
       <Head>
@@ -60,7 +97,7 @@ const Planets: FC = ({
         <Card key={v4()} sx={{ marginBottom: '20px' }}>
           <CardContent>
             <Typography variant='h4' fontWeight='bold' component='p'>
-              Name: {result.name}
+              Name: {result.name === 'unknown' ? 'Unknown' : result.name}
             </Typography>
             <Typography variant='h6' fontWeight='bold' component='p'>
               Population:{' '}
@@ -70,9 +107,12 @@ const Planets: FC = ({
                     Number.parseInt(result.population),
                   )}
             </Typography>
-            <Typography variant='h6' fontWeight='bold' component='p'>
-              Residents:{' '}
+            <Typography variant='h6' component='p'>
+              Residents:
             </Typography>
+            {result.residents.map((resident) => (
+              <p key={v4()}>{resident}</p>
+            ))}
           </CardContent>
         </Card>
       ))}

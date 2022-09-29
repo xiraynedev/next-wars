@@ -68,6 +68,5 @@ export const getResidents = async (results: PlanetResult[]) => {
     }
   }
 
-  console.log(planets)
   return planets;
 };
