@@ -12,7 +12,6 @@ export default async function handler(
 
   while (dataCopy.next) {
     if (dataCopy.next === 'https://swapi.dev/api/planets/?page=3') {
-      console.log(dataCopy.results.flat().length);
       break;
     }
     await fetch(dataCopy.next)
