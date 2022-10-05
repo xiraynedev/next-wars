@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   GetStaticProps,
   GetStaticPropsContext,
@@ -84,7 +84,7 @@ const Planets: FC = ({
     setResults(planetResults);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     retrieveResidents();
   }, []);
 
