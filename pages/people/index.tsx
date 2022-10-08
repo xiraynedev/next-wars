@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { PeopleResult } from '../../interfaces';
+import { PeopleProps, PeopleResult } from '../../interfaces';
 import {
   fetchData,
   sortHeight,
@@ -23,28 +23,32 @@ import {
 const People: FC = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [previousPage, setPreviousPage] = useState<string | null>(data.previous);
+  const [previousPage, setPreviousPage] = useState<string | null>(
+    data.previous,
+  );
   const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PeopleResult[]>(data.results);
+
+  const updateState = (pageResponse: PeopleProps) => {
+    setPreviousPage(pageResponse.previous);
+    setNextPage(pageResponse.next);
+    setResults(pageResponse.results);
+  };
 
   const handlePreviousClick = async () => {
     if (!previousPage) return;
 
-    const previousPageResponse = await fetchData(previousPage);
+    const previousPageResponse = (await fetchData(previousPage)) as PeopleProps;
 
-    setPreviousPage(previousPageResponse.previous);
-    setNextPage(previousPageResponse.next);
-    setResults(previousPageResponse.results);
+    updateState(previousPageResponse);
   };
 
   const handleNextClick = async () => {
     if (!nextPage) return;
 
-    const nextPageResponse = await fetchData(nextPage);
+    const nextPageResponse = (await fetchData(nextPage)) as PeopleProps;
 
-    setPreviousPage(nextPageResponse.previous);
-    setNextPage(nextPageResponse.next);
-    setResults(nextPageResponse.results);
+    updateState(nextPageResponse);
   };
 
   const handleSortName = () => {

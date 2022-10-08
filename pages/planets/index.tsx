@@ -24,13 +24,17 @@ const Planets: FC = ({
   const [nextPage, setNextPage] = useState<string | null>(planetResults.next);
   const [results, setResults] = useState<PlanetResult[]>(planetResults.results);
 
+  const updatePageState = (pageResponse: PlanetProps) => {
+    setPreviousPage(pageResponse.previous);
+    setNextPage(pageResponse.next);
+  };
+
   const handlePreviousClick = async () => {
     if (!previousPage) return;
 
-    const previousPageResponse = await fetchData(previousPage);
+    const previousPageResponse = (await fetchData(previousPage)) as PlanetProps;
 
-    setPreviousPage(previousPageResponse.previous);
-    setNextPage(previousPageResponse.next);
+    updatePageState(previousPageResponse);
 
     const previousResidentsResponse = await getResidents([
       ...previousPageResponse.results,
@@ -42,10 +46,9 @@ const Planets: FC = ({
   const handleNextClick = async () => {
     if (!nextPage) return;
 
-    const nextPageResponse = await fetchData(nextPage);
+    const nextPageResponse = (await fetchData(nextPage)) as PlanetProps;
 
-    setPreviousPage(nextPageResponse.previous);
-    setNextPage(nextPageResponse.next);
+    updatePageState(nextPageResponse);
 
     const nextResidentsResponse = await getResidents([
       ...nextPageResponse.results,

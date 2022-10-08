@@ -1,10 +1,10 @@
-import { PlanetResult, PeopleResult } from './../interfaces/index';
+import { PlanetResult, PeopleResult, PeopleProps, PlanetProps } from './../interfaces/index';
 
 export const fetchData = async (page: string) => {
   const cache = await caches.open('swapi');
   await cache.add(new Request(page));
 
-  const data = await caches
+  const data: PeopleProps | PlanetProps = await caches
     .match(page)
     .then((pageData) => pageData?.json());
 
