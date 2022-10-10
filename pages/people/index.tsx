@@ -1,9 +1,5 @@
-import { FC, useState } from 'react';
-import {
-  GetStaticProps,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next';
+import { useState } from 'react';
+import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
@@ -20,9 +16,9 @@ import {
   sortName,
 } from '../../utils/functions';
 
-const People: FC = ({
+const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}) => {
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
@@ -121,11 +117,9 @@ const People: FC = ({
 
 export default People;
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext,
-) => {
+export const getStaticProps = async () => {
   const response = await fetch('https://swapi.dev/api/people');
-  const data = await response.json();
+  const data: PeopleProps = await response.json();
 
   return {
     props: {

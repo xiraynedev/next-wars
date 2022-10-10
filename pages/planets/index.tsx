@@ -1,9 +1,5 @@
-import { FC, useEffect, useState } from 'react';
-import {
-  GetStaticProps,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next';
+import { useEffect, useState } from 'react';
+import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
@@ -15,14 +11,14 @@ import Button from '@mui/material/Button';
 import { fetchData, getResidents } from '../../utils/functions';
 import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
 
-const Planets: FC = ({
-  data: planetResults,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  data,
+}) => {
   const [previousPage, setPreviousPage] = useState<string | null>(
-    planetResults.previous,
+    data.previous,
   );
-  const [nextPage, setNextPage] = useState<string | null>(planetResults.next);
-  const [results, setResults] = useState<PlanetResult[]>(planetResults.results);
+  const [nextPage, setNextPage] = useState<string | null>(data.next);
+  const [results, setResults] = useState<PlanetResult[]>(data.results);
 
   const updatePageState = (pageResponse: PlanetProps) => {
     setPreviousPage(pageResponse.previous);
@@ -139,9 +135,7 @@ const Planets: FC = ({
 
 export default Planets;
 
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext,
-) => {
+export const getStaticProps = async () => {
   const response = await fetch('https://swapi.dev/api/planets');
   const data: PlanetProps = await response.json();
 
