@@ -1,4 +1,4 @@
-![Next.js](https://img.shields.io/badge/Next.js-12.3.1-lightgrey)
+![Next.js](https://img.shields.io/badge/Next.js-13.0.0-lightgrey)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.8.3-blue)
 ![MUI](https://img.shields.io/badge/MUI-5.10.6-blue)
 
