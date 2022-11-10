@@ -92,42 +92,59 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Head>
         <title>Planets Endpoint</title>
       </Head>
-      {results.map((result) => (
-        <Card key={v4()} sx={{ marginBottom: '20px' }}>
-          <CardContent>
-            <Typography variant='h4' fontWeight='bold' component='p'>
-              Name: {result.name === 'unknown' ? 'Unknown' : result.name}
-            </Typography>
-            <Typography variant='h6' fontWeight='bold' component='p'>
-              Population:{' '}
-              {result.population === 'unknown'
-                ? 'Unknown'
-                : Intl.NumberFormat('en').format(
-                    Number.parseInt(result.population),
-                  )}
-            </Typography>
-            <Typography variant='h6' component='p'>
-              Residents:
-            </Typography>
-            {result.residents.map((resident) => (
-              <p key={v4()}>{resident}</p>
-            ))}
-          </CardContent>
-        </Card>
-      ))}
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} my={4} mx={2}>
-        <Button variant='contained' onClick={handlePreviousClick}>
-          Previous
-        </Button>
-        <Button variant='contained' onClick={handleNextClick}>
-          Next
-        </Button>
-        <Link href='/api/planets' passHref>
-          <Button variant='contained'>Retrieve JSON</Button>
-        </Link>
-        <Link href='/' passHref>
-          <Button variant='contained'>Return to Main Menu</Button>
-        </Link>
+      <Stack
+        direction='column'
+        marginX={{ xs: '1em', sm: '3em' }}
+        marginY='1.5em'
+      >
+        {results.map((result) => (
+          <Card key={v4()} sx={{ marginBottom: '20px' }}>
+            <CardContent>
+              <Typography
+                variant='h4'
+                color='primary'
+                fontWeight='bold'
+                component='p'
+              >
+                Name: {result.name === 'unknown' ? 'Unknown' : result.name}
+              </Typography>
+              <Typography variant='h6' fontWeight='bold' component='p'>
+                Population:{' '}
+                {result.population === 'unknown'
+                  ? 'Unknown'
+                  : Intl.NumberFormat('en').format(
+                      Number.parseInt(result.population),
+                    )}
+              </Typography>
+              <Typography variant='h6' component='p'>
+                Residents:
+              </Typography>
+              {result.residents.map((resident) => (
+                <p className='character-name' key={v4()}>
+                  {resident}
+                </p>
+              ))}
+            </CardContent>
+          </Card>
+        ))}
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <Button variant='contained' onClick={handlePreviousClick}>
+            Previous
+          </Button>
+          <Button variant='contained' onClick={handleNextClick}>
+            Next
+          </Button>
+          <Link href='/api/planets' passHref>
+            <Button variant='contained' fullWidth>
+              Retrieve JSON
+            </Button>
+          </Link>
+          <Link href='/' passHref>
+            <Button variant='contained' fullWidth>
+              Return to Main Menu
+            </Button>
+          </Link>
+        </Stack>
       </Stack>
     </>
   );

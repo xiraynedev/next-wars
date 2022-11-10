@@ -20,18 +20,29 @@ export default function Home() {
               variant='h2'
               component='h1'
               sx={{ flexGrow: 1, color: 'black', padding: '20px' }}
+              align='center'
             >
               Next Wars
             </Typography>
           </Toolbar>
         </AppBar>
       </Box>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} mx={4} my={4}>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        mx={4}
+        my={4}
+        justifyContent='center'
+      >
         <Link href='/people' passHref>
-          <Button variant='contained'>People Endpoint</Button>
+          <Button variant='contained' fullWidth>
+            People Endpoint
+          </Button>
         </Link>
         <Link href='/planets' passHref>
-          <Button variant='contained'>Planets Endpoint</Button>
+          <Button variant='contained' fullWidth>
+            Planets Endpoint
+          </Button>
         </Link>
       </Stack>
     </>

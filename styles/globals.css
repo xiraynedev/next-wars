@@ -12,3 +12,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.character-name {
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+
+.character-name:hover {
+  font-size: 1.01rem;
+  transform: translateX(0.5em);
+  color: orange;
+  text-decoration: underline;
+}

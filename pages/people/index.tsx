@@ -15,6 +15,8 @@ import {
   sortMass,
   sortName,
 } from '../../utils/functions';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
@@ -67,49 +69,73 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Head>
         <title>People Endpoint</title>
       </Head>
-      {results.map((result) => (
-        <Card key={v4()} sx={{ marginBottom: '20px' }}>
-          <CardContent>
-            <Typography variant='h4' fontWeight='bold' component='p'>
-              Name: {result.name}
-            </Typography>
-            <Typography variant='h6' fontWeight='bold' component='p'>
-              Height: {result.height}
-            </Typography>
-            <Typography variant='h6' fontWeight='bold' component='p'>
-              Mass: {result.mass}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} my={4} mx={2}>
-        <Button variant='contained' onClick={handlePreviousClick}>
-          Previous
-        </Button>
-        <Button variant='contained' onClick={handleNextClick}>
-          Next
-        </Button>
-        <Link href='/api/people?sort=name' passHref>
-          <Button variant='contained'>JSON Sorted by Name</Button>
-        </Link>
-        <Link href='/api/people?sort=height' passHref>
-          <Button variant='contained'>JSON Sorted by Height</Button>
-        </Link>
-        <Link href='/api/people?sort=mass' passHref>
-          <Button variant='contained'>JSON Sorted by Mass</Button>
-        </Link>
-        <Button variant='contained' onClick={handleSortName}>
-          Sort by Name
-        </Button>
-        <Button variant='contained' onClick={handleSortHeight}>
-          Sort by Height
-        </Button>
-        <Button variant='contained' onClick={handleSortMass}>
-          Sort by Mass
-        </Button>
-        <Link href='/' passHref>
-          <Button variant='contained'>Return to Main Menu</Button>
-        </Link>
+      <Stack marginX={4} marginY={4}>
+        <Grid container spacing={2}>
+          {results.map((result) => (
+            <Grid key={v4()} item xs={12} sm={6}>
+              <Card>
+                <CardContent>
+                  <Typography
+                    variant='h5'
+                    fontWeight='bold'
+                    component='p'
+                    color='primary'
+                  >
+                    Name: {result.name}
+                  </Typography>
+                  <Typography variant='body1' color='GrayText'>
+                    Height: {result.height}
+                  </Typography>
+                  <Typography variant='body1' color='GrayText'>
+                    Mass: {result.mass}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          flexWrap='wrap'
+          marginY={4}
+          gap={2}
+        >
+          <Button variant='contained' onClick={handlePreviousClick}>
+            Previous
+          </Button>
+          <Button variant='contained' onClick={handleNextClick}>
+            Next
+          </Button>
+          <Link href='/api/people?sort=name'>
+            <Button variant='contained' fullWidth>
+              JSON Sorted by Name
+            </Button>
+          </Link>
+          <Link href='/api/people?sort=height'>
+            <Button variant='contained' fullWidth>
+              JSON Sorted by Height
+            </Button>
+          </Link>
+          <Link href='/api/people?sort=mass'>
+            <Button variant='contained' fullWidth>
+              JSON Sorted by Mass
+            </Button>
+          </Link>
+          <Button variant='contained' onClick={handleSortName}>
+            Sort by Name
+          </Button>
+          <Button variant='contained' onClick={handleSortHeight}>
+            Sort by Height
+          </Button>
+          <Button variant='contained' onClick={handleSortMass}>
+            Sort by Mass
+          </Button>
+          <Link href='/'>
+            <Button variant='contained' fullWidth>
+              Return to Main Menu
+            </Button>
+          </Link>
+        </Stack>
       </Stack>
     </>
   );
