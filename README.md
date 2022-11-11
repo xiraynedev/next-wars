@@ -14,19 +14,15 @@ The project currently allows ten people or planets to be retrieved with getStati
 
 ---
 
-![project-screenshot-1](/assets/images/project-screenshots/project-screenshot-1.webp)
+![main screenshot](assets/images/project-screenshots/main-project-screenshot.webp)
 
-![project-screenshot-2](assets/images/project-screenshots/project-screenshot-2.webp)
+![people screenshot](assets/images/project-screenshots/people-project-screenshot.webp)
 
-![project-screenshot-3](assets/images/project-screenshots/project-screenshot-3.webp)
+![planets screenshot](assets/images/project-screenshots/planets-project-screenshot.webp)
 
-![project-screenshot-4](assets/images/project-screenshots//project-screenshot-4.webp)
+![people api](assets/images/project-screenshots/people-api.webp)
 
-![project-screenshot-5](assets/images/project-screenshots/project-screenshot-5.webp)
-
-![project-screenshot-6](assets/images/project-screenshots/project-screenshot-6.webp)
-
-![lighthouse](assets/images/project-screenshots/lighthouse.webp)
+![planets api](assets/images/project-screenshots/planets-api.webp)
 
 ## Installation Instructions
 
