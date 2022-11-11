@@ -24,6 +24,8 @@ The project currently allows ten people or planets to be retrieved with getStati
 
 ![planets api](assets/images/project-screenshots/planets-api.webp)
 
+![lighthouse screenshot](assets/images/project-screenshots/lighthouse.webp)
+
 ## Installation Instructions
 
 1. Clone the repo:
