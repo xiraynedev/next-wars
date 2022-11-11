@@ -83,10 +83,10 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   >
                     Name: {result.name}
                   </Typography>
-                  <Typography variant='body1' color='GrayText'>
+                  <Typography variant='body1'>
                     Height: {result.height}
                   </Typography>
-                  <Typography variant='body1' color='GrayText'>
+                  <Typography variant='body1'>
                     Mass: {result.mass}
                   </Typography>
                 </CardContent>
