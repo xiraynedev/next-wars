@@ -4,27 +4,27 @@
 
 # next-wars
 
-## See the project live [here](https://next-wars.vercel.app/)
+## See the application live [here](https://next-wars.vercel.app/)
 
-This project retrieves data from the Star Wars API and displays the results using Next.js, TypeScript, and MUI. The project is designed around two endpoints. The people endpoint retrieves all people and displays some of their information. The planets endpoint retrieves planet information and replaces the URLs in the residents arrays with the names of the residents.
+Next Wars retrieves data from the Star Wars API and displays the results using Next.js, TypeScript, and MUI. The application was designed around two endpoints. The people endpoint retrieves all people and displays some of their information. The planets endpoint retrieves planet information and replaces the URLs in the residents arrays with the names of the residents.
 
-The project allows users to paginate between the previous and next endpoints to fetch data. The sorting buttons allow for sorting between name, height, and mass. Dedicated JSON buttons are included to fetch directly from the API via the routes /api/people and /api/planets and have been limited to twenty people and planets until the fetching of all information is optimized and cached. Return to main menu buttons are included to return to the main page. 
+The application allows users to paginate between the previous and next endpoints to fetch data. The sorting buttons allow for sorting between name, height, and mass. Dedicated JSON buttons are included to fetch directly from the API via the routes /api/people and /api/planets and have been limited to twenty people and planets until the fetching of all information is optimized and cached. Return to main menu buttons are included to return to the main page.
 
-The project currently allows ten people or planets to be retrieved with getStaticProps, and then allows the client to retrieve the next set with client-side fetching while caching the responses with the Cache API. The project may eventually get all data from getStaticProps at build time and implement pagination in another way.
+The application currently allows ten people or planets to be retrieved with getStaticProps, and then allows the client to retrieve the next set with client-side fetching while caching the responses with the Cache API. The application may eventually get all data from getStaticProps at build time and implement pagination in another way.
 
 ---
 
-![main screenshot](assets/images/project-screenshots/main-project-screenshot.webp)
+![application screenshot](assets/images/application-screenshots/application-screenshot.webp)
 
-![people screenshot](assets/images/project-screenshots/people-project-screenshot.webp)
+![people screenshot](assets/images/application-screenshots/people-screenshot.webp)
 
-![planets screenshot](assets/images/project-screenshots/planets-project-screenshot.webp)
+![planets screenshot](assets/images/application-screenshots/planets-screenshot.webp)
 
-![people api](assets/images/project-screenshots/people-api.webp)
+![people api](assets/images/application-screenshots/people-api.webp)
 
-![planets api](assets/images/project-screenshots/planets-api.webp)
+![planets api](assets/images/application-screenshots/planets-api.webp)
 
-![lighthouse screenshot](assets/images/project-screenshots/lighthouse.webp)
+![lighthouse screenshot](assets/images/application-screenshots/lighthouse.webp)
 
 ## Installation Instructions
 
