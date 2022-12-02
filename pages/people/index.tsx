@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { PeopleProps, PeopleResult } from '../../interfaces';
@@ -15,8 +16,6 @@ import {
   sortMass,
   sortName,
 } from '../../utils/functions';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
