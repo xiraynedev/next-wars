@@ -86,9 +86,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   <Typography variant='body1'>
                     Height: {result.height}
                   </Typography>
-                  <Typography variant='body1'>
-                    Mass: {result.mass}
-                  </Typography>
+                  <Typography variant='body1'>Mass: {result.mass}</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -144,7 +142,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 export default People;
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://swapi.dev/api/people');
+  const response = await fetch('https://swapi.py4e.com/api/people/');
   const data: PeopleProps = await response.json();
 
   return {

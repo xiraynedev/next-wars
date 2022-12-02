@@ -153,7 +153,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 export default Planets;
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://swapi.dev/api/planets');
+  const response = await fetch('https://swapi.py4e.com/api/planets/');
   const data: PlanetProps = await response.json();
 
   return {

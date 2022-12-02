@@ -5,13 +5,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const response = await fetch('https://swapi.dev/api/planets');
+  const response = await fetch('https://swapi.py4e.com/api/planets/');
   const data: PlanetProps = await response.json();
 
   const dataCopy = { ...data };
 
   while (dataCopy.next) {
-    if (dataCopy.next === 'https://swapi.dev/api/planets/?page=3') {
+    if (dataCopy.next === 'https://swapi.py4e.com/api/people/planets/?page=3') {
       break;
     }
     await fetch(dataCopy.next)
