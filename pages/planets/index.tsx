@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -52,40 +52,6 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
     setResults(nextResidentsResponse);
   };
-
-  const retrieveResidents = async () => {
-    const planetResults = [...results];
-
-    const cache = await caches.open('residents');
-
-    for (let i = 0; i < planetResults.length; i++) {
-      const peopleResult: PeopleResult[] = await Promise.all(
-        planetResults[i].residents.map(async (resident) => {
-          if (await cache.match(resident)) {
-            return cache
-              .match(resident)
-              .then((residentData) => residentData?.json());
-          }
-
-          await cache.add(resident);
-          return await cache
-            .match(resident)
-            .then((residentData) => residentData?.json());
-        }),
-      );
-
-      planetResults[i].residents.length = 0;
-      for (const person of peopleResult) {
-        planetResults[i].residents.push(person.name);
-      }
-    }
-
-    setResults(planetResults);
-  };
-
-  useEffect(() => {
-    retrieveResidents();
-  }, []);
 
   return (
     <>
@@ -155,6 +121,20 @@ export default Planets;
 export const getStaticProps = async () => {
   const response = await fetch('https://swapi.py4e.com/api/planets/');
   const data: PlanetProps = await response.json();
+
+  for (let i = 0; i < data.results.length; i++) {
+    const peopleResult: PeopleResult[] = await Promise.all(
+      data.results[i].residents.map(async (resident) => {
+        const residentResponse = await fetch(resident);
+        return await residentResponse.json();
+      }),
+    );
+
+    data.results[i].residents.length = 0;
+    for (const person of peopleResult) {
+      data.results[i].residents.push(person.name);
+    }
+  }
 
   return {
     props: {
