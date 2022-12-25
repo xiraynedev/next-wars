@@ -8,21 +8,14 @@ export default async function handler(
   const response = await fetch('https://swapi.py4e.com/api/planets/');
   const data: PlanetProps = await response.json();
 
-  const dataCopy = { ...data };
-
-  while (dataCopy.next) {
-    if (dataCopy.next === 'https://swapi.py4e.com/api/people/planets/?page=3') {
-      break;
-    }
-    await fetch(dataCopy.next)
-      .then((result) => result.json())
-      .then((resultData) => {
-        dataCopy.next = resultData.next;
-        dataCopy.results.push(resultData.results);
-      });
+  while (data.next) {
+    const dataResponse = await fetch(data.next);
+    const dataResult = await dataResponse.json();
+    data.next = dataResult.next;
+    data.results.push(dataResult.results);
   }
 
-  const planets = dataCopy.results.flat();
+  const planets = data.results.flat();
 
   for (let i = 0; i < planets.length; i++) {
     const peopleResult: PeopleResult[] = await Promise.all(
