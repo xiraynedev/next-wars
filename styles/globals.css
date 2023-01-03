@@ -24,3 +24,19 @@ a {
   color: orange;
   text-decoration: underline;
 }
+
+#header {
+  opacity: 0;
+}
+
+#people-endpoint {
+  transform: translateX(-1000px);
+}
+
+#planets-endpoint {
+  transform: translateX(1000px);
+}
+
+.people-card, .planets-card {
+  opacity: 0;
+}

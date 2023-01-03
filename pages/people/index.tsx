@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
+import { gsap } from 'gsap';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -20,6 +21,14 @@ import {
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
+  useLayoutEffect(() => {
+    gsap.to('.people-card', {
+      opacity: 1,
+      delay: 0.3,
+      duration: 1,
+    });
+  });
+
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
@@ -68,7 +77,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Head>
         <title>People Endpoint</title>
       </Head>
-      <Stack marginX={4} marginY={4}>
+      <Stack className='people-card' marginX={4} marginY={4}>
         <Grid container spacing={2}>
           {results.map((result) => (
             <Grid key={v4()} item xs={12} sm={6}>
