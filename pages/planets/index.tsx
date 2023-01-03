@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
+import { gsap } from 'gsap';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -14,6 +15,13 @@ import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
+  useLayoutEffect(() => {
+    gsap.to('.planets-card', {
+      opacity: 1,
+      delay: 0.5,
+      duration: 1,
+    });
+  });
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
@@ -59,6 +67,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <title>Planets Endpoint</title>
       </Head>
       <Stack
+        className='planets-card'
         direction='column'
         marginX={{ xs: '1em', sm: '3em' }}
         marginY='1.5em'
