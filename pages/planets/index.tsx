@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -15,13 +15,14 @@ import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     gsap.to('.planets-card', {
       opacity: 1,
       delay: 0.5,
       duration: 1,
     });
-  });
+  }, []);
+
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );

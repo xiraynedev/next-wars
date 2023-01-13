@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { gsap } from 'gsap';
@@ -7,10 +8,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useLayoutEffect } from 'react';
 
 export default function Home() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     gsap.to('#people-endpoint', {
       x: 0,
       duration: 1.5,
@@ -27,7 +27,7 @@ export default function Home() {
       opacity: 1,
       duration: 5,
     });
-  });
+  }, []);
 
   return (
     <>
