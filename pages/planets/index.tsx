@@ -28,6 +28,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   );
   const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PlanetResult[]>(data.results);
+  const [spin, setSpin] = useState(false);
 
   const updatePageState = (pageResponse: PlanetProps) => {
     setPreviousPage(pageResponse.previous);
@@ -61,6 +62,10 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
     setResults(nextResidentsResponse);
   };
+
+  const handleActivateSpin = () => {
+    setSpin(prev => !prev);
+  }
 
   return (
     <>
@@ -111,8 +116,13 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             Next
           </Button>
           <Link href='/api/planets' passHref>
-            <Button variant='contained' fullWidth>
-              Retrieve JSON
+            <Button variant='contained' fullWidth onClick={handleActivateSpin}>
+                {
+                  spin && (
+                    <span className='border-8 mr-2 border-b-blue-500 rounded-full animate-spin'></span>
+                  )
+                }
+                <span>Retrieve JSON</span>
             </Button>
           </Link>
           <Link href='/' passHref>

@@ -17,6 +17,7 @@ import {
   sortMass,
   sortName,
 } from '../../utils/functions';
+import { ButtonGroup } from '@mui/material';
 
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
@@ -104,43 +105,31 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           direction={{ xs: 'column', sm: 'row' }}
           flexWrap='wrap'
           marginY={4}
-          gap={2}
+          gap={4}
         >
-          <Button variant='contained' onClick={handlePreviousClick}>
-            Previous
-          </Button>
-          <Button variant='contained' onClick={handleNextClick}>
-            Next
-          </Button>
-          <Link href='/api/people?sort=name'>
-            <Button variant='contained' fullWidth>
-              JSON Sorted by Name
-            </Button>
-          </Link>
-          <Link href='/api/people?sort=height'>
-            <Button variant='contained' fullWidth>
-              JSON Sorted by Height
-            </Button>
-          </Link>
-          <Link href='/api/people?sort=mass'>
-            <Button variant='contained' fullWidth>
-              JSON Sorted by Mass
-            </Button>
-          </Link>
-          <Button variant='contained' onClick={handleSortName}>
-            Sort by Name
-          </Button>
-          <Button variant='contained' onClick={handleSortHeight}>
-            Sort by Height
-          </Button>
-          <Button variant='contained' onClick={handleSortMass}>
-            Sort by Mass
-          </Button>
-          <Link href='/'>
-            <Button variant='contained' fullWidth>
-              Return to Main Menu
-            </Button>
-          </Link>
+          <ButtonGroup
+            className='text-white bg-blue-600'
+            variant='contained'
+            aria-label='primary button group'
+          >
+            <Button onClick={handlePreviousClick}>Previous</Button>
+            <Button onClick={handleNextClick}>Next</Button>
+            <Link href='/api/people?sort=name'>
+              <Button fullWidth>JSON Sorted by Name</Button>
+            </Link>
+            <Link href='/api/people?sort=height'>
+              <Button fullWidth>JSON Sorted by Height</Button>
+            </Link>
+            <Link href='/api/people?sort=mass'>
+              <Button fullWidth>JSON Sorted by Mass</Button>
+            </Link>
+            <Button onClick={handleSortName}>Sort by Name</Button>
+            <Button onClick={handleSortHeight}>Sort by Height</Button>
+            <Button onClick={handleSortMass}>Sort by Mass</Button>
+            <Link href='/'>
+              <Button fullWidth>Return to Main Menu</Button>
+            </Link>
+          </ButtonGroup>
         </Stack>
       </Stack>
     </>
