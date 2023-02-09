@@ -1,33 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
-import { gsap } from 'gsap';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import { fetchData, getResidents } from '../../utils/functions';
 import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
 
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  useEffect(() => {
-    gsap.to('.planets-card', {
-      opacity: 1,
-      delay: 0.5,
-      duration: 1,
-    });
-  }, []);
-
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
   const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PlanetResult[]>(data.results);
+  const [spin, setSpin] = useState(false);
 
   const updatePageState = (pageResponse: PlanetProps) => {
     setPreviousPage(pageResponse.previous);
@@ -62,66 +49,76 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     setResults(nextResidentsResponse);
   };
 
+  const handleActivateSpin = () => {
+    setSpin((prev) => !prev);
+  };
+
   return (
     <>
       <Head>
         <title>Planets Endpoint</title>
       </Head>
-      <Stack
-        className='planets-card'
-        direction='column'
-        marginX={{ xs: '1em', sm: '3em' }}
-        marginY='1.5em'
-      >
-        {results.map((result) => (
-          <Card key={v4()} sx={{ marginBottom: '20px' }}>
-            <CardContent>
-              <Typography
-                variant='h4'
-                color='primary'
-                fontWeight='bold'
-                component='p'
-              >
-                Name: {result.name === 'unknown' ? 'Unknown' : result.name}
-              </Typography>
-              <Typography variant='h6' fontWeight='bold' component='p'>
-                Population:{' '}
-                {result.population === 'unknown'
-                  ? 'Unknown'
-                  : Intl.NumberFormat('en').format(
-                      Number.parseInt(result.population),
-                    )}
-              </Typography>
-              <Typography variant='h6' component='p'>
-                Residents:
-              </Typography>
+      <div className='container mx-auto my-8 w-11/12'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
+          {results.map((result) => (
+            <div
+              key={v4()}
+              className='border text-white bg-blue-600 p-6 text-lg rounded-lg font-light shadow-2xl shadow-slate-500 hover:translate-x-1 transition-all hover:-rotate-6 duration-500 hover:cursor-pointer'
+            >
+              <p>
+                <span className='font-bold'>Name: </span>
+                <span>
+                  {result.name === 'unknown' ? 'Unknown' : result.name}
+                </span>
+              </p>
+              <p>
+                <span className='font-bold'>Population: </span>
+                <span>
+                  {result.population === 'unknown'
+                    ? 'Unknown'
+                    : Intl.NumberFormat('en').format(
+                        Number.parseInt(result.population),
+                      )}
+                </span>
+              </p>
+              <span className='font-bold'>Residents: </span>
               {result.residents.map((resident) => (
-                <p className='character-name' key={v4()}>
-                  {resident}
-                </p>
+                <p key={v4()}>{resident}</p>
               ))}
-            </CardContent>
-          </Card>
-        ))}
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <Button variant='contained' onClick={handlePreviousClick}>
+            </div>
+          ))}
+        </div>
+        <div className='flex flex-col md:flex-row w-full gap-4 text-white text-sm my-10'>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handlePreviousClick}
+          >
             Previous
-          </Button>
-          <Button variant='contained' onClick={handleNextClick}>
+          </button>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handleNextClick}
+          >
             Next
-          </Button>
-          <Link href='/api/planets' passHref>
-            <Button variant='contained' fullWidth>
-              Retrieve JSON
-            </Button>
+          </button>
+          <Link href='/api/planets' passHref legacyBehavior>
+            <button
+              className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+              onClick={handleActivateSpin}
+            >
+              {spin && (
+                <span className='inline-block w-3 h-3 border-2 mr-3 border-blue-600 border-b-slate-900 rounded-full animate-spin'></span>
+              )}
+              <span>Retrieve JSON</span>
+            </button>
           </Link>
-          <Link href='/' passHref>
-            <Button variant='contained' fullWidth>
+          <Link href='/' passHref legacyBehavior>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               Return to Main Menu
-            </Button>
+            </button>
           </Link>
-        </Stack>
-      </Stack>
+        </div>
+      </div>
     </>
   );
 };
