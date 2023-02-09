@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
-import { gsap } from 'gsap';
 import { PeopleProps, PeopleResult } from '../../interfaces';
 import {
   fetchData,
@@ -15,14 +14,6 @@ import {
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  useEffect(() => {
-    gsap.to('.people-card', {
-      opacity: 1,
-      delay: 0.3,
-      duration: 1,
-    });
-  }, []);
-
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
