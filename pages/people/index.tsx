@@ -72,7 +72,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <title>People Endpoint</title>
       </Head>
       <div className='container mx-auto my-8 w-11/12'>
-        <div className='grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-4 ease-in-out'>
+        <div className='grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-4'>
           {results.map((result) => (
             <div
               key={v4()}
