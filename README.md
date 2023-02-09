@@ -1,6 +1,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-13.0.0-lightgrey)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.8.3-blue)
-![MUI](https://img.shields.io/badge/MUI-5.10.6-blue)
+![React](https://img.shields.io/badge/React-18.2.0-blue)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-3.2.6-blue)
 
 # next-wars
 
