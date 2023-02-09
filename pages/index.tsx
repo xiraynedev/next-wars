@@ -28,7 +28,7 @@ export default function Home() {
       <Head>
         <title>Next Wars</title>
       </Head>
-      <header className='p-8 border-b-2 shadow-lg'>
+      <header className='p-8 border-b-2 shadow-lg ease-in-out '>
         <h1 className='text-center text-5xl sm:text-6xl font-thin text-blue-900'>
           Next Wars
         </h1>
@@ -45,7 +45,7 @@ export default function Home() {
         <Link href='/planets' passHref>
           <button
             id='planets-endpoint'
-            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded tracking-widest'
+            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded tracking-wider'
           >
             PLANETS ENDPOINT
           </button>

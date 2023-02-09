@@ -18,22 +18,6 @@ a {
   box-sizing: border-box;
 }
 
-.character-name {
-  cursor: pointer;
-  transition: all 1s ease-in-out;
-}
-
-.character-name:hover {
-  font-size: 1.01rem;
-  transform: translateX(0.5em);
-  color: orange;
-  text-decoration: underline;
-}
-
-#header {
-  opacity: 0;
-}
-
 #people-endpoint {
   transform: translateX(-1000px);
 }
@@ -42,6 +26,3 @@ a {
   transform: translateX(1000px);
 }
 
-.people-card, .planets-card {
-  opacity: 0;
-}

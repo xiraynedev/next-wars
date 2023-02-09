@@ -4,12 +4,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
 import { gsap } from 'gsap';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import { PeopleProps, PeopleResult } from '../../interfaces';
 import {
   fetchData,
@@ -17,7 +11,6 @@ import {
   sortMass,
   sortName,
 } from '../../utils/functions';
-import { ButtonGroup } from '@mui/material';
 
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
@@ -78,60 +71,81 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Head>
         <title>People Endpoint</title>
       </Head>
-      <Stack className='people-card' marginX={4} marginY={4}>
-        <Grid container spacing={2}>
+      <div className='container mx-auto my-8 w-11/12'>
+        <div className='grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-4 ease-in-out'>
           {results.map((result) => (
-            <Grid key={v4()} item xs={12} sm={6}>
-              <Card>
-                <CardContent>
-                  <Typography
-                    variant='h5'
-                    fontWeight='bold'
-                    component='p'
-                    color='primary'
-                  >
-                    Name: {result.name}
-                  </Typography>
-                  <Typography variant='body1'>
-                    Height: {result.height}
-                  </Typography>
-                  <Typography variant='body1'>Mass: {result.mass}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            <div
+              key={v4()}
+              className='border text-white bg-blue-600 p-6 text-lg rounded-lg font-light shadow-2xl shadow-slate-500 hover:translate-x-1 transition-all hover:-rotate-6 duration-500 hover:cursor-pointer'
+            >
+              <p>
+                <span className='font-bold'>Name: </span>
+                {result.name}
+              </p>
+              <p>
+                <span className='font-bold'>Height: </span>
+                Height: {result.height}
+              </p>
+              <p>
+                <span className='font-bold'>Mass: </span>
+                Mass: {result.mass}
+              </p>
+            </div>
           ))}
-        </Grid>
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          flexWrap='wrap'
-          marginY={4}
-          gap={4}
-        >
-          <ButtonGroup
-            className='text-white bg-blue-600'
-            variant='contained'
-            aria-label='primary button group'
+        </div>
+        <div className='flex flex-col md:flex-row md:flex-wrap w-full gap-4 text-white text-sm my-10'>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handlePreviousClick}
           >
-            <Button onClick={handlePreviousClick}>Previous</Button>
-            <Button onClick={handleNextClick}>Next</Button>
-            <Link href='/api/people?sort=name'>
-              <Button fullWidth>JSON Sorted by Name</Button>
-            </Link>
-            <Link href='/api/people?sort=height'>
-              <Button fullWidth>JSON Sorted by Height</Button>
-            </Link>
-            <Link href='/api/people?sort=mass'>
-              <Button fullWidth>JSON Sorted by Mass</Button>
-            </Link>
-            <Button onClick={handleSortName}>Sort by Name</Button>
-            <Button onClick={handleSortHeight}>Sort by Height</Button>
-            <Button onClick={handleSortMass}>Sort by Mass</Button>
-            <Link href='/'>
-              <Button fullWidth>Return to Main Menu</Button>
-            </Link>
-          </ButtonGroup>
-        </Stack>
-      </Stack>
+            Previous
+          </button>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handleNextClick}
+          >
+            Next
+          </button>
+          <Link href='/api/people?sort=name' passHref legacyBehavior>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+              JSON Name Sort
+            </button>
+          </Link>
+          <Link href='/api/people?sort=height' passHref legacyBehavior>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+              JSON Height Sort
+            </button>
+          </Link>
+          <Link href='/api/people?sort=mass' passHref legacyBehavior>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+              JSON Mass Sort
+            </button>
+          </Link>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handleSortName}
+          >
+            Name Sort
+          </button>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handleSortHeight}
+          >
+            Height Sort
+          </button>
+          <button
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            onClick={handleSortMass}
+          >
+            Mass Sort
+          </button>
+          <Link href='/' passHref legacyBehavior>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+              Return to Main Menu
+            </button>
+          </Link>
+        </div>
+      </div>
     </>
   );
 };
