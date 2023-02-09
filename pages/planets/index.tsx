@@ -106,10 +106,14 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
               onClick={handleActivateSpin}
             >
-              {spin && (
-                <span className='inline-block w-3 h-3 border-2 mr-3 border-blue-600 border-b-slate-900 rounded-full animate-spin'></span>
+              {spin ? (
+                <>
+                  <span className='inline-block w-3 h-3 border-2 mr-3 border-blue-600 border-b-slate-900 rounded-full animate-spin'></span>
+                  <span>Retrieving JSON...</span>
+                </>
+              ) : (
+                <span>Retrieve JSON</span>
               )}
-              <span>Retrieve JSON</span>
             </button>
           </Link>
           <Link href='/' passHref legacyBehavior>
