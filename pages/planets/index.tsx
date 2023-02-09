@@ -107,7 +107,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               onClick={handleActivateSpin}
             >
               {spin && (
-                <span className='border-2 mr-2 border-b-blue-500 rounded-full animate-spin'></span>
+                <span className='inline-block w-3 h-3 border-2 mr-3 border-blue-600 border-b-slate-900 rounded-full animate-spin'></span>
               )}
               <span>Retrieve JSON</span>
             </button>
