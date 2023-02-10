@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -50,8 +50,12 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   };
 
   const handleActivateSpin = () => {
-    setSpin((prev) => !prev);
+    setSpin(true);
   };
+
+  useEffect(() => {
+    setSpin(false);
+  }, [])
 
   return (
     <>
