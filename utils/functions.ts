@@ -1,4 +1,9 @@
-import { PlanetResult, PeopleResult, PeopleProps, PlanetProps } from './../interfaces/index';
+import {
+  PlanetResult,
+  PeopleResult,
+  PeopleProps,
+  PlanetProps,
+} from './../interfaces/index';
 
 export const fetchData = async (page: string) => {
   const cache = await caches.open('swapi');
@@ -55,7 +60,7 @@ export const getResidents = async (results: PlanetResult[]) => {
             .then((residentData) => residentData?.json());
         }
 
-        await cache.add(resident)
+        await cache.add(resident);
         return await cache
           .match(resident)
           .then((residentData) => residentData?.json());
@@ -69,4 +74,8 @@ export const getResidents = async (results: PlanetResult[]) => {
   }
 
   return planets;
+};
+
+export const scrollToTop = () => {
+  window.scrollTo(0, 0);
 };

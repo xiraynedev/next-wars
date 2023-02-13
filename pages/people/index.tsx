@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -6,6 +6,7 @@ import { v4 } from 'uuid';
 import { PeopleProps, PeopleResult } from '../../interfaces';
 import {
   fetchData,
+  scrollToTop,
   sortHeight,
   sortMass,
   sortName,
@@ -32,6 +33,8 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     const previousPageResponse = (await fetchData(previousPage)) as PeopleProps;
 
     updateState(previousPageResponse);
+
+    scrollToTop();
   };
 
   const handleNextClick = async () => {
@@ -40,21 +43,29 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     const nextPageResponse = (await fetchData(nextPage)) as PeopleProps;
 
     updateState(nextPageResponse);
+
+    scrollToTop();
   };
 
   const handleSortName = () => {
     const sortedCopy = sortName([...results]);
     setResults(sortedCopy);
+
+    scrollToTop();
   };
 
   const handleSortHeight = () => {
     const sortedCopy = sortHeight([...results]);
     setResults(sortedCopy);
+
+    scrollToTop();
   };
 
   const handleSortMass = () => {
     const sortedCopy = sortMass([...results]);
     setResults(sortedCopy);
+
+    scrollToTop();
   };
 
   return (
@@ -62,7 +73,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Head>
         <title>People Endpoint</title>
       </Head>
-      <div className='container mx-auto my-8 w-11/12'>
+      <div className='container overscroll-contain mx-auto my-8 w-11/12'>
         <div className='grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-4'>
           {results.map((result) => (
             <div
@@ -130,7 +141,7 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           >
             Mass Sort
           </button>
-          <Link href='/' passHref legacyBehavior>
+          <Link href='/' legacyBehavior passHref>
             <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               Return to Main Menu
             </button>
