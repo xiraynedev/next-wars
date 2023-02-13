@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className='overflow-hidden'>
       <Head>
         <title>Next Wars</title>
       </Head>
@@ -51,6 +51,6 @@ export default function Home() {
           </button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }

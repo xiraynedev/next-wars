@@ -3,18 +3,20 @@ import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { v4 } from 'uuid';
-import { fetchData, getResidents } from '../../utils/functions';
+import { fetchData, getResidents, scrollToTop } from '../../utils/functions';
 import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
+import { Router, useRouter } from 'next/router';
 
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
+  const router = useRouter();
+
   const [previousPage, setPreviousPage] = useState<string | null>(
     data.previous,
   );
   const [nextPage, setNextPage] = useState<string | null>(data.next);
   const [results, setResults] = useState<PlanetResult[]>(data.results);
-  const [spin, setSpin] = useState(false);
 
   const updatePageState = (pageResponse: PlanetProps) => {
     setPreviousPage(pageResponse.previous);
@@ -33,6 +35,8 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     ]);
 
     setResults(previousResidentsResponse);
+
+    scrollToTop();
   };
 
   const handleNextClick = async () => {
@@ -47,15 +51,9 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     ]);
 
     setResults(nextResidentsResponse);
-  };
 
-  const handleActivateSpin = () => {
-    setSpin(true);
+    scrollToTop();
   };
-
-  useEffect(() => {
-    setSpin(false);
-  }, [])
 
   return (
     <>
@@ -105,22 +103,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
           >
             Next
           </button>
-          <Link href='/api/planets' passHref legacyBehavior>
-            <button
-              className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
-              onClick={handleActivateSpin}
-            >
-              {spin ? (
-                <>
-                  <span className='inline-block w-3 h-3 border-2 mr-3 border-blue-600 border-b-slate-900 rounded-full animate-spin'></span>
-                  <span>Retrieving JSON...</span>
-                </>
-              ) : (
-                <span>Retrieve JSON</span>
-              )}
-            </button>
-          </Link>
-          <Link href='/' passHref legacyBehavior>
+          <Link href='/' legacyBehavior>
             <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               Return to Main Menu
             </button>
