@@ -19,15 +19,9 @@ The next version of the application is a work in progress and will incorporate h
 
 ![people screenshot](assets/images/application-screenshots/people-screenshot.webp)
 
-![people screenshot 2](assets/images/application-screenshots/people-screenshot-2.webp)
-
 ![planets screenshot](assets/images/application-screenshots/planets-screenshot.webp)
 
-![planets screenshot 2](assets/images/application-screenshots/planets-screenshot-2.webp)
-
 ![people api](assets/images/application-screenshots/people-api.webp)
-
-![planets api](assets/images/application-screenshots/planets-api.webp)
 
 ![lighthouse screenshot](assets/images/application-screenshots/lighthouse.webp)
 
