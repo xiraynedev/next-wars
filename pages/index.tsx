@@ -17,10 +17,6 @@ export default function Home() {
       delay: 0.5,
       ease: 'Bounce.easeOut',
     });
-    gsap.to('#header', {
-      opacity: 1,
-      duration: 5,
-    });
   }, []);
 
   return (
