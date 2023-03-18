@@ -1,72 +1,70 @@
-import { useEffect, useState } from 'react';
-import { InferGetStaticPropsType, NextPage } from 'next';
-import Link from 'next/link';
-import Head from 'next/head';
-import { v4 } from 'uuid';
-import { PeopleProps, PeopleResult } from '../../interfaces';
+import { useEffect, useState } from 'react'
+import { InferGetStaticPropsType, NextPage } from 'next'
+import Link from 'next/link'
+import Head from 'next/head'
+import { v4 } from 'uuid'
+import { PeopleProps, PeopleResult } from '../../interfaces'
 import {
   fetchData,
   scrollToTop,
   sortHeight,
   sortMass,
   sortName,
-} from '../../utils/functions';
+} from '../../utils/functions'
 
 const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  const [previousPage, setPreviousPage] = useState<string | null>(
-    data.previous,
-  );
-  const [nextPage, setNextPage] = useState<string | null>(data.next);
-  const [results, setResults] = useState<PeopleResult[]>(data.results);
+  const [previousPage, setPreviousPage] = useState<string | null>(data.previous)
+  const [nextPage, setNextPage] = useState<string | null>(data.next)
+  const [results, setResults] = useState<PeopleResult[]>(data.results)
 
   const updateState = (pageResponse: PeopleProps) => {
-    setPreviousPage(pageResponse.previous);
-    setNextPage(pageResponse.next);
-    setResults(pageResponse.results);
-  };
+    setPreviousPage(pageResponse.previous)
+    setNextPage(pageResponse.next)
+    setResults(pageResponse.results)
+  }
 
   const handlePreviousClick = async () => {
-    if (!previousPage) return;
+    if (!previousPage) return
 
-    const previousPageResponse = (await fetchData(previousPage)) as PeopleProps;
+    const previousPageResponse = (await fetchData(previousPage)) as PeopleProps
 
-    updateState(previousPageResponse);
+    updateState(previousPageResponse)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   const handleNextClick = async () => {
-    if (!nextPage) return;
+    if (!nextPage) return
 
-    const nextPageResponse = (await fetchData(nextPage)) as PeopleProps;
+    const nextPageResponse = (await fetchData(nextPage)) as PeopleProps
 
-    updateState(nextPageResponse);
+    updateState(nextPageResponse)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   const handleSortName = () => {
-    const sortedCopy = sortName([...results]);
-    setResults(sortedCopy);
+    const sortedCopy = sortName([...results])
+    setResults(sortedCopy)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   const handleSortHeight = () => {
-    const sortedCopy = sortHeight([...results]);
-    setResults(sortedCopy);
+    const sortedCopy = sortHeight([...results])
+    setResults(sortedCopy)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   const handleSortMass = () => {
-    const sortedCopy = sortMass([...results]);
-    setResults(sortedCopy);
+    const sortedCopy = sortMass([...results])
+    setResults(sortedCopy)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   return (
     <>
@@ -86,11 +84,11 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
               </p>
               <p>
                 <span className='font-bold'>Height: </span>
-                Height: {result.height}
+                {result.height}
               </p>
               <p>
                 <span className='font-bold'>Mass: </span>
-                Mass: {result.mass}
+                {result.mass}
               </p>
             </div>
           ))}
@@ -149,18 +147,18 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default People;
+export default People
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://swapi.py4e.com/api/people/');
-  const data: PeopleProps = await response.json();
+  const response = await fetch('https://swapi.py4e.com/api/people/')
+  const data: PeopleProps = await response.json()
 
   return {
     props: {
       data,
     },
-  };
-};
+  }
+}
