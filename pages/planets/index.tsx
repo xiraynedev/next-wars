@@ -1,59 +1,57 @@
-import { useEffect, useState } from 'react';
-import { InferGetStaticPropsType, NextPage } from 'next';
-import Link from 'next/link';
-import Head from 'next/head';
-import { v4 } from 'uuid';
-import { fetchData, getResidents, scrollToTop } from '../../utils/functions';
-import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces';
-import { Router, useRouter } from 'next/router';
+import { useEffect, useState } from 'react'
+import { InferGetStaticPropsType, NextPage } from 'next'
+import Link from 'next/link'
+import Head from 'next/head'
+import { v4 } from 'uuid'
+import { fetchData, getResidents, scrollToTop } from '../../utils/functions'
+import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces'
+import { Router, useRouter } from 'next/router'
 
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [previousPage, setPreviousPage] = useState<string | null>(
-    data.previous,
-  );
-  const [nextPage, setNextPage] = useState<string | null>(data.next);
-  const [results, setResults] = useState<PlanetResult[]>(data.results);
+  const [previousPage, setPreviousPage] = useState<string | null>(data.previous)
+  const [nextPage, setNextPage] = useState<string | null>(data.next)
+  const [results, setResults] = useState<PlanetResult[]>(data.results)
 
   const updatePageState = (pageResponse: PlanetProps) => {
-    setPreviousPage(pageResponse.previous);
-    setNextPage(pageResponse.next);
-  };
+    setPreviousPage(pageResponse.previous)
+    setNextPage(pageResponse.next)
+  }
 
   const handlePreviousClick = async () => {
-    if (!previousPage) return;
+    if (!previousPage) return
 
-    const previousPageResponse = (await fetchData(previousPage)) as PlanetProps;
+    const previousPageResponse = (await fetchData(previousPage)) as PlanetProps
 
-    updatePageState(previousPageResponse);
+    updatePageState(previousPageResponse)
 
     const previousResidentsResponse = await getResidents([
       ...previousPageResponse.results,
-    ]);
+    ])
 
-    setResults(previousResidentsResponse);
+    setResults(previousResidentsResponse)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   const handleNextClick = async () => {
-    if (!nextPage) return;
+    if (!nextPage) return
 
-    const nextPageResponse = (await fetchData(nextPage)) as PlanetProps;
+    const nextPageResponse = (await fetchData(nextPage)) as PlanetProps
 
-    updatePageState(nextPageResponse);
+    updatePageState(nextPageResponse)
 
     const nextResidentsResponse = await getResidents([
       ...nextPageResponse.results,
-    ]);
+    ])
 
-    setResults(nextResidentsResponse);
+    setResults(nextResidentsResponse)
 
-    scrollToTop();
-  };
+    scrollToTop()
+  }
 
   return (
     <>
@@ -79,7 +77,7 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                   {result.population === 'unknown'
                     ? 'Unknown'
                     : Intl.NumberFormat('en').format(
-                        Number.parseInt(result.population),
+                        Number.parseInt(result.population)
                       )}
                 </span>
               </p>
@@ -111,26 +109,26 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Planets;
+export default Planets
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://swapi.py4e.com/api/planets/');
-  const data: PlanetProps = await response.json();
+  const response = await fetch('https://swapi.py4e.com/api/planets/')
+  const data: PlanetProps = await response.json()
 
   for (let i = 0; i < data.results.length; i++) {
     const peopleResult: PeopleResult[] = await Promise.all(
       data.results[i].residents.map(async (resident) => {
-        const residentResponse = await fetch(resident);
-        return await residentResponse.json();
-      }),
-    );
+        const residentResponse = await fetch(resident)
+        return await residentResponse.json()
+      })
+    )
 
-    data.results[i].residents.length = 0;
+    data.results[i].residents.length = 0
     for (const person of peopleResult) {
-      data.results[i].residents.push(person.name);
+      data.results[i].residents.push(person.name)
     }
   }
 
@@ -138,5 +136,5 @@ export const getStaticProps = async () => {
     props: {
       data,
     },
-  };
-};
+  }
+}

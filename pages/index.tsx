@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import Link from 'next/link';
-import Head from 'next/head';
-import { gsap } from 'gsap';
+import { useEffect } from 'react'
+import Link from 'next/link'
+import Head from 'next/head'
+import { gsap } from 'gsap'
 
 export default function Home() {
   useEffect(() => {
@@ -10,14 +10,14 @@ export default function Home() {
       duration: 1.5,
       delay: 0.5,
       ease: 'Bounce.easeOut',
-    });
+    })
     gsap.to('#planets-endpoint', {
       x: 0,
       duration: 1.5,
       delay: 0.5,
       ease: 'Bounce.easeOut',
-    });
-  }, []);
+    })
+  }, [])
 
   return (
     <div className='overflow-hidden'>
@@ -48,5 +48,5 @@ export default function Home() {
         </Link>
       </div>
     </div>
-  );
+  )
 }
