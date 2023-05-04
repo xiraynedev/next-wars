@@ -11,8 +11,6 @@ Next Wars was built with Next.js, React, TypeScript, and Tailwind CSS to retriev
 
 The application allows users to paginate between the previous and next endpoints to fetch data. The sorting buttons allow for sorting between name, height, and mass. Dedicated JSON buttons are included to fetch directly from the API via the route /api/people and can sort the data by name, height, or mass. Sorting buttons are also provided to sort the data on the client. The application currently allows ten people or planets to be retrieved with getStaticProps, and then allows the client to retrieve the next set with client-side fetching while caching the responses with the Cache API.
 
-The next version of the application is a work in progress and will incorporate hand drawn images of the main characters.
-
 ---
 
 ![application screenshot](assets/images/application-screenshots/application-screenshot.webp)
