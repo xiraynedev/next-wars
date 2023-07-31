@@ -11,7 +11,6 @@ export default async function handler(
   const dataCopy = { ...data }
 
   while (dataCopy.next) {
-    if (dataCopy.next === 'https://swapi.py4e.com/api/people/?page=3') break
     await fetch(dataCopy.next)
       .then((result) => result.json())
       .then((resultData) => {
