@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { InferGetStaticPropsType, NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import { v4 } from 'uuid'
 import { fetchData, getResidents, scrollToTop } from '../../utils/functions'
 import { PeopleResult, PlanetProps, PlanetResult } from '../../interfaces'
-import { Router, useRouter } from 'next/router'
 
 const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
-  const router = useRouter()
 
   const [previousPage, setPreviousPage] = useState<string | null>(data.previous)
   const [nextPage, setNextPage] = useState<string | null>(data.next)
