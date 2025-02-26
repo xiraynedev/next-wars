@@ -33,7 +33,7 @@ export default function Home() {
         <Link href='/people' passHref>
           <button
             id='people-endpoint'
-            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded tracking-wider'
+            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded-sm tracking-wider'
           >
             PEOPLE ENDPOINT
           </button>
@@ -41,7 +41,7 @@ export default function Home() {
         <Link href='/planets' passHref>
           <button
             id='planets-endpoint'
-            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded tracking-wider'
+            className='text-white w-full shadow-lg bg-blue-600 px-1 py-3 sm:px-8 rounded-sm tracking-wider'
           >
             PLANETS ENDPOINT
           </button>
