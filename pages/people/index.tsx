@@ -95,52 +95,52 @@ const People: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
         <div className='flex flex-col md:flex-row md:flex-wrap w-full gap-4 text-white text-sm my-10'>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handlePreviousClick}
           >
             Previous
           </button>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handleNextClick}
           >
             Next
           </button>
           <Link href='/api/people?sort=name' passHref legacyBehavior>
-            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               JSON Name Sort
             </button>
           </Link>
           <Link href='/api/people?sort=height' passHref legacyBehavior>
-            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               JSON Height Sort
             </button>
           </Link>
           <Link href='/api/people?sort=mass' passHref legacyBehavior>
-            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               JSON Mass Sort
             </button>
           </Link>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handleSortName}
           >
             Name Sort
           </button>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handleSortHeight}
           >
             Height Sort
           </button>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handleSortMass}
           >
             Mass Sort
           </button>
           <Link href='/' legacyBehavior passHref>
-            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               Return to Main Menu
             </button>
           </Link>

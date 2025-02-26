@@ -88,19 +88,19 @@ const Planets: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
         <div className='flex flex-col md:flex-row w-full gap-4 text-white text-sm my-10'>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handlePreviousClick}
           >
             Previous
           </button>
           <button
-            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
+            className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'
             onClick={handleNextClick}
           >
             Next
           </button>
           <Link href='/' legacyBehavior>
-            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
+            <button className='bg-blue-600 shadow-lg shadow-slate-400 px-1 py-3 sm:px-8 rounded-sm transition-all hover:scale-110 ease-in-out hover:bg-slate-200 hover:text-red-900 hover:font-bold duration-1000'>
               Return to Main Menu
             </button>
           </Link>
